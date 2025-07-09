@@ -9,34 +9,14 @@ import com.base.OpenChromeDriver;
 public class LoginPage extends Core {
   
 	
-	public static void optionbrowser() {
+	public static void open_Driver() {
 		Core.openWebDriver();
+	}
+
+	public static void optionbrowser() {
 		Core.method_NavigateToBaseURL();
 	}
-	
-//	public static void method_enterUserName(String userName) {
-//
-//	WebElement search = driver.findElement(By.xpath("//*[@title='Search']"));
-//	search.sendKeys(userName);
-//	}
-//
-//
-//	public static void method_enterPassword() {
-//
-//
-//	}
-//
-//	public static void method_ClickOkButton() {
-//
-//
-//
-//	}
-//
-//	public static void method_VerifyPageTitle() {
-//
-//
-//
-//	}
+
 }
 
 
