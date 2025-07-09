@@ -36,9 +36,10 @@ public class Core {
 
     public static String reportPath = null;
     public static boolean startTest = false;
+    public static WebDriver driver;
     public static Scenario test = null;
     public static int globalWaitTime = 10;
-    public static WebDriver driver;
+
 
     public static void setup(Scenario testSce) {
         test = testSce;
