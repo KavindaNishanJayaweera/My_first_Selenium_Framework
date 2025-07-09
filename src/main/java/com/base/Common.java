@@ -277,6 +277,26 @@ public class Common extends Core {
 
     }
 
+    public static void method_VirticalScrollingToAnElement_New(By element) {
+        int elementCount = 0;
+
+        try {
+            WebElement webElement = driver.findElement(element);
+            elementCount = method_GetElementCount(element);
+            Assert.assertTrue(elementCount > 0);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+
+            // Center the element in viewport instead of top
+            js.executeScript("arguments[0].scrollIntoView({block: 'center'});", webElement);
+
+            test.log("Scroll to element " + element + " completed successfully");
+            method_hardPause(2);
+        } catch (Exception e) {
+            Assert.assertTrue(elementCount > 0);
+            test.log("Scroll to element " + element + " failed");
+        }
+    }
+
     public static void method_VirticalScrollingToAnElement(By element) {
         int elementCount = 0;
 

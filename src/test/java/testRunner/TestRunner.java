@@ -6,14 +6,15 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {
 		
-"./src/test/resources/featrues/0000/Login.feature",
+		"./src/test/resources/0000/Login.feature",
+		"./src/test/resources/featrues/0000/Navigation.feature",
 
 },
 // To generate the step definition class
 		//dryRun=true,
 		strict = true, 
 		glue = { "stepDefinitions" }, 
-		tags = { "@Regression" }, 
+		//tags = { "@Regression" },
 		//tags = { "-@Div" }, 
 		plugin = { "pretty",
 				"json:target/cucumber-reports/Cucumber.json", "junit:target/cucumber-reports/Cucumber.xml",

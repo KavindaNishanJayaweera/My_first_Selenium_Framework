@@ -61,6 +61,13 @@ public class Core {
                         driver = new FirefoxDriver(ffInccognito);
                         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
                         break;
+                        //Adding Incogneto tab
+                        //  System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+                        //  ChromeOptions options = new ChromeOptions();
+                        //  options.addArguments(new String[]{"--ignore-certificate-errors"});
+                        //  options.addArguments("--incognito"); // ✅ Open in incognito mode
+                        //  driver = new ChromeDriver(options);
+                        //  driver.manage().window().maximize();
                     case "chrome":
                         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
                         ChromeOptions options = new ChromeOptions();
