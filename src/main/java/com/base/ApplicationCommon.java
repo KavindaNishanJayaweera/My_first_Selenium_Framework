@@ -1,8 +1,10 @@
 package com.base;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Year;
 import java.util.Arrays;
@@ -65,7 +67,6 @@ public class ApplicationCommon extends Core {
                 // Locate element using name attribute.
                 fieldElement = By.xpath("//*[@name='" + elementID + "']");
                 break;
-
             case "placeholder":
                 // Locate element using name attribute.
                 fieldElement = By.xpath("//*[@placeholder='" + elementID + "']");
@@ -221,7 +222,8 @@ public class ApplicationCommon extends Core {
                     case "notificationName":
                     case "kpiName":
                     case "subject":
-
+                        //My
+                    case "g2599-name":
                         if (controllerType != null) {
                             method_EnterDataToTextField(webElement, value, controllerType, true); // Input with modification.
                         } else {
@@ -249,9 +251,16 @@ public class ApplicationCommon extends Core {
 
                     case "email":
                     case "emailAddress":
-
                         method_EnterEmailToTextFieldUsingFormControlWithChanging(webElement, value); // Input with modification.
                         break;
+                    //My Start
+                    case "g2599-email":
+                        method_EnterEmailToTextFieldUsingFormControlWithChanging_class(webElement, value);
+                        break;
+                    case "g2599-website":
+                        method_EnterURLToTextFieldUsingFormControlWithChanging_NotRandom(webElement, value);
+                        break;
+                    //My End
                     case "new-name":
                         method_EnterNameToTextMatLableText(webElement, value);
                         break;
@@ -458,5 +467,58 @@ public class ApplicationCommon extends Core {
         }
     }
 
+    //If dont have formcontroller
+
+    private static void method_EnterEmailToTextFieldUsingFormControlWithChanging_class(String elementID, String dataValue) {
+        // Locate the input field using the formcontrolname attribute
+        By filedName = By.xpath("//*[@id='" + elementID + "']");
+
+        // Generate a random string to append to the email
+        String randomStr = method_GenerateRandomString();
+
+        // Split the email to insert the random string before '@'
+        String[] emailParts = dataValue.split("@");
+        if (emailParts.length != 2) {
+            throw new IllegalArgumentException("Invalid email format: " + dataValue);
+        }
+        String modifiedEmail = emailParts[0] + "_" + randomStr + "@" + emailParts[1];
+
+        // Send the modified email to the input field
+        Common.method_SendKeys(filedName, "", elementID, modifiedEmail);
+    }
+
+    public static void method_EnterURLToTextFieldUsingFormControlWithChanging_class(String elementID, String dataValue) {
+        // Locate the input field using the id attribute
+        By fieldName = By.xpath("//*[@id='" + elementID + "']");
+
+        // Generate a random string to make the URL unique
+        String randomStr = method_GenerateRandomString();
+
+        // Modify the base URL by prepending the random string (e.g., test-www.Google.com)
+        String modifiedURL = "test" + randomStr + "-" + dataValue;
+
+        // Send the modified URL to the input field
+        Common.method_SendKeys(fieldName, "", elementID, modifiedURL);
+    }
+
+    public static void method_EnterURLToTextFieldUsingFormControlWithChanging_NotRandom(String elementID, String dataValue) {
+        // Locate the input field using the id attribute
+        By fieldName = By.xpath("//*[@id='" + elementID + "']");
+
+        // Send the exact URL value to the input field (no randomization)
+        Common.method_SendKeys(fieldName, "", elementID, dataValue);
+    }
+
+    public static void method_HoverElement(By element, String elementName) {
+        try {
+            WebElement webElement = driver.findElement(element);
+            Actions action = new Actions(driver);
+            action.moveToElement(webElement).perform();
+            test.log("Hovered over " + elementName + " successfully.");
+        } catch (Exception e) {
+            test.log("Failed to hover over " + elementName + ": " + e.getMessage());
+            Assert.fail("Unable to hover over element: " + elementName);
+        }
+    }
 
 }
